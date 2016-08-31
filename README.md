@@ -38,9 +38,9 @@ The input has two parts separated by a blank line:
 
 Format:
 
-    [DistributionCenter1] [Product1] [Quantity Available]
+    [Warehouse1] [Product1] [Quantity Available]
     ...
-    [DistributionCenterN] [ProductN] [Quantity Available]
+    [WarehouseN] [ProductN] [Quantity Available]
     
     [Shipping Method],[Prioritization Strategy]
     [Product1] [Quantity Needed]
