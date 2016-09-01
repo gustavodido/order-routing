@@ -48,16 +48,18 @@ public class OrderRoutingAlgorithm {
     private Response fulfillOrder(OrderProductMap orderProductMap, CapacityMap capacityMap, List<InventoryItem> prioritizedInventory) {
         List<ShippingItem> shippingItems = new ArrayList<>();
 
-        for (InventoryItem i : prioritizedInventory) {
-            if (!orderProductMap.isProductFulfilled(i.getProductName()) && !capacityMap.isOverCapacity(i.getWarehouseName())) {
-                int quantityBefore = orderProductMap.getQuantity(i.getProductName());
-                int capacityQuantity = capacityMap.getCapacity(i.getWarehouseName());
+        for (InventoryItem item : prioritizedInventory) {
+            if (!orderProductMap.isProductFulfilled(item.getProductName()) &&
+                    !capacityMap.isOverCapacity(item.getWarehouseName())) {
 
-                orderProductMap.decreaseQuantity(i.getProductName(), min(i.getQuantity(), capacityQuantity));
-                int quantity = min(min(i.getQuantity(), capacityQuantity), quantityBefore);
-                capacityMap.decreaseCapacity(i.getWarehouseName(), quantity);
+                int currentQuantity = orderProductMap.getQuantity(item.getProductName());
+                int capacity = capacityMap.getCapacity(item.getWarehouseName());
+                int availableQuantity = min(min(item.getQuantity(), capacity), currentQuantity);
 
-                shippingItems.add(new ShippingItem(i.getWarehouseName(), i.getProductName(), quantity));
+                orderProductMap.decreaseQuantity(item.getProductName(), min(item.getQuantity(), capacity));
+                capacityMap.decreaseCapacity(item.getWarehouseName(), availableQuantity);
+
+                shippingItems.add(new ShippingItem(item.getWarehouseName(), item.getProductName(), availableQuantity));
             }
         }
 
