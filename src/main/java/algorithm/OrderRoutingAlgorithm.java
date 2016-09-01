@@ -48,9 +48,12 @@ public class OrderRoutingAlgorithm {
     private Response fulfillOrder(OrderProductMap orderProductMap, CapacityMap capacityMap, List<InventoryItem> prioritizedInventory) {
         List<ShippingItem> shippingItems = new ArrayList<>();
 
+        Predicate<InventoryItem> inventoryItemPredicate = item ->
+                !orderProductMap.isProductFulfilled(item.getProductName()) &&
+                        !capacityMap.isOverCapacity(item.getWarehouseName());
+
         prioritizedInventory.stream()
-                .filter(item -> !orderProductMap.isProductFulfilled(item.getProductName()) &&
-                        !capacityMap.isOverCapacity(item.getWarehouseName()))
+                .filter(inventoryItemPredicate)
                 .forEach(item -> {
                     int currentQuantity = orderProductMap.getQuantity(item.getProductName());
                     int capacity = capacityMap.getCapacity(item.getWarehouseName());
