@@ -1,9 +1,9 @@
-package providers.implementation;
+package repositories.implementation;
 
 import java.util.List;
 
 import domain.Warehouse;
-import providers.WarehouseRepository;
+import repositories.WarehouseRepository;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;

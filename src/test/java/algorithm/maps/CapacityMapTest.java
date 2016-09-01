@@ -2,7 +2,7 @@ package algorithm.maps;
 
 import org.junit.Before;
 import org.junit.Test;
-import providers.implementation.InMemoryWarehouseRepository;
+import repositories.implementation.InMemoryWarehouseRepository;
 
 import static algorithm.maps.CapacityMap.capacityMap;
 import static org.hamcrest.core.Is.is;

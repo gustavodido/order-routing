@@ -3,7 +3,7 @@ package support;
 import domain.InventoryItem;
 import domain.OrderItem;
 import domain.Warehouse;
-import providers.implementation.InMemoryWarehouseRepository;
+import repositories.implementation.InMemoryWarehouseRepository;
 
 import java.util.List;
 

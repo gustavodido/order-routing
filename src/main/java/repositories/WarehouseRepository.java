@@ -1,4 +1,4 @@
-package providers;
+package repositories;
 
 import domain.Warehouse;
 

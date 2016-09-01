@@ -12,7 +12,7 @@ import domain.ShippingMethod;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import providers.implementation.InMemoryWarehouseRepository;
+import repositories.implementation.InMemoryWarehouseRepository;
 
 import java.util.List;
 

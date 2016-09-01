@@ -12,7 +12,7 @@ import domain.ShippingItem;
 import domain.ShippingMethod;
 import org.junit.Before;
 import org.junit.Test;
-import providers.implementation.InMemoryWarehouseRepository;
+import repositories.implementation.InMemoryWarehouseRepository;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.hasItems;
