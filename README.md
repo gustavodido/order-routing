@@ -160,7 +160,6 @@ The output is a list of warehouses that will fulfill the order with the product 
     Brazil Mouse 2
     Brazil Keyboard 3
     France Keyboard 2
-    France Monitor 2
     South Africa Monitor 4
     South Africa Camera 1
     South Africa Mouse 2

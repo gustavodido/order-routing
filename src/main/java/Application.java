@@ -1,5 +1,8 @@
-/**
- * Created by gdomenic on 8/27/16.
- */
+import algorithm.OrderRoutingAlgorithm;
+
 public class Application {
+    public static void main(String[] args) {
+        OrderRoutingAlgorithm a = new OrderRoutingAlgorithm(null, null);
+        a.execute(null);
+    }
 }
