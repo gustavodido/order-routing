@@ -1,6 +1,5 @@
 package algorithm.maps;
 
-import domain.OrderItem;
 import domain.Warehouse;
 
 import java.util.List;

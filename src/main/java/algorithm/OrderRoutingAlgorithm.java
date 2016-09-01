@@ -48,20 +48,19 @@ public class OrderRoutingAlgorithm {
     private Response fulfillOrder(OrderProductMap orderProductMap, CapacityMap capacityMap, List<InventoryItem> prioritizedInventory) {
         List<ShippingItem> shippingItems = new ArrayList<>();
 
-        for (InventoryItem item : prioritizedInventory) {
-            if (!orderProductMap.isProductFulfilled(item.getProductName()) &&
-                    !capacityMap.isOverCapacity(item.getWarehouseName())) {
+        prioritizedInventory.stream()
+                .filter(item -> !orderProductMap.isProductFulfilled(item.getProductName()) &&
+                        !capacityMap.isOverCapacity(item.getWarehouseName()))
+                .forEach(item -> {
+                    int currentQuantity = orderProductMap.getQuantity(item.getProductName());
+                    int capacity = capacityMap.getCapacity(item.getWarehouseName());
+                    int availableQuantity = min(min(item.getQuantity(), capacity), currentQuantity);
 
-                int currentQuantity = orderProductMap.getQuantity(item.getProductName());
-                int capacity = capacityMap.getCapacity(item.getWarehouseName());
-                int availableQuantity = min(min(item.getQuantity(), capacity), currentQuantity);
+                    orderProductMap.decreaseQuantity(item.getProductName(), min(item.getQuantity(), capacity));
+                    capacityMap.decreaseCapacity(item.getWarehouseName(), availableQuantity);
 
-                orderProductMap.decreaseQuantity(item.getProductName(), min(item.getQuantity(), capacity));
-                capacityMap.decreaseCapacity(item.getWarehouseName(), availableQuantity);
-
-                shippingItems.add(new ShippingItem(item.getWarehouseName(), item.getProductName(), availableQuantity));
-            }
-        }
+                    shippingItems.add(new ShippingItem(item.getWarehouseName(), item.getProductName(), availableQuantity));
+                });
 
         return new Response(shippingItems, orderProductMap.isOrderFulfilled());
     }

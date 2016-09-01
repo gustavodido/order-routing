@@ -15,6 +15,7 @@ import org.junit.Test;
 import repositories.implementation.InMemoryWarehouseRepository;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -26,7 +27,7 @@ public class AcceptanceTests {
     @Before
     public void setUp() {
         algorithm = new OrderRoutingAlgorithm(new InMemoryWarehouseRepository().list(),
-                asList(new ShippingMethodConstraint()));
+                singletonList(new ShippingMethodConstraint()));
     }
 
     @Test
@@ -36,7 +37,7 @@ public class AcceptanceTests {
                 new InventoryItem("France", "Mouse", 2)),
                 ShippingMethod.DHL,
                 new NoPrioritizationStrategy(),
-                asList(
+                singletonList(
                         new OrderItem("Keyboard", 2)
                 )
         );
@@ -53,7 +54,7 @@ public class AcceptanceTests {
                 new InventoryItem("South Africa", "Mouse", 2)),
                 ShippingMethod.UPS,
                 new NoPrioritizationStrategy(),
-                asList(
+                singletonList(
                         new OrderItem("Mouse", 1)
                 )
         );
@@ -196,7 +197,7 @@ public class AcceptanceTests {
                 new InventoryItem("Brazil", "Mouse", 3)),
                 ShippingMethod.Fedex,
                 new NoPrioritizationStrategy(),
-                asList(
+                singletonList(
                         new OrderItem("Mouse", 5)
                 )
         );
