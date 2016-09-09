@@ -56,7 +56,6 @@ public class OrderRoutingAlgorithmTest {
         verify(warehouseConstraint).build(any());
     }
 
-
     @Test
     public void shouldApplyPrioritizationStrategy() {
         algorithm.execute(request());

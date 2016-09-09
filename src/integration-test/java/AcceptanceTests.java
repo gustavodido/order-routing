@@ -26,8 +26,7 @@ public class AcceptanceTests {
 
     @Before
     public void setUp() {
-        algorithm = new OrderRoutingAlgorithm(new InMemoryWarehouseRepository().list(),
-                singletonList(new ShippingMethodConstraint()));
+        algorithm = new OrderRoutingAlgorithm(new InMemoryWarehouseRepository().list(), singletonList(new ShippingMethodConstraint()));
     }
 
     @Test

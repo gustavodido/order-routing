@@ -1,13 +1,13 @@
 package algorithm;
 
-import algorithm.filter.constraints.WarehouseConstraint;
 import algorithm.dto.Request;
 import algorithm.dto.Response;
+import algorithm.filter.constraints.WarehouseConstraint;
 import algorithm.maps.CapacityMap;
 import algorithm.maps.OrderProductMap;
-import domain.Warehouse;
 import domain.InventoryItem;
 import domain.ShippingItem;
+import domain.Warehouse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,8 @@ import java.util.stream.Collectors;
 import static algorithm.maps.CapacityMap.capacityMap;
 import static algorithm.maps.OrderProductMap.orderProductMap;
 import static java.lang.Math.min;
+import static java.util.Arrays.asList;
+import static java.util.Collections.min;
 
 public class OrderRoutingAlgorithm {
 
@@ -55,11 +57,12 @@ public class OrderRoutingAlgorithm {
         prioritizedInventory.stream()
                 .filter(inventoryItemPredicate)
                 .forEach(item -> {
-                    int currentQuantity = orderProductMap.getQuantity(item.getProductName());
-                    int capacity = capacityMap.getCapacity(item.getWarehouseName());
-                    int availableQuantity = min(min(item.getQuantity(), capacity), currentQuantity);
+                    int currentProductQuantity = orderProductMap.getQuantity(item.getProductName());
+                    int warehouseCapacity = capacityMap.getCapacity(item.getWarehouseName());
 
-                    orderProductMap.decreaseQuantity(item.getProductName(), min(item.getQuantity(), capacity));
+                    int availableQuantity = min(asList(item.getQuantity(), warehouseCapacity, currentProductQuantity));
+
+                    orderProductMap.decreaseQuantity(item.getProductName(), min(item.getQuantity(), warehouseCapacity));
                     capacityMap.decreaseCapacity(item.getWarehouseName(), availableQuantity);
 
                     shippingItems.add(new ShippingItem(item.getWarehouseName(), item.getProductName(), availableQuantity));
